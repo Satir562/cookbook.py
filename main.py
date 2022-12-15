@@ -17,14 +17,15 @@ def make_cook_book(name_file):
 
 
 
-def get_shop_list_by_dishes(dishes: list, person_count):
+def get_shop_list_by_dishes(dishes: list, file_path:str, person_count=1):
     cook_book = make_cook_book(file_path)
     shop_list = {}
     for dish in dishes:
         for ingredients in cook_book.get(dish, []):
-            if dish[0] in shop_list:
-                shop_list[ingredients[dishes]]['quantity'] += ingredients['quantity'] * person_count
+            if ingredients['ingredient_name'] in shop_list:
+                shop_list[ingredients['ingredient_name']]['quantity'] += ingredients['quantity'] * person_count
             else:
                 shop_list[ingredients['ingredient_name']] = {'quantity': ingredients['quantity'] * person_count, 'measure': ingredients['measure']}
     return shop_list
-pprint(get_shop_list_by_dishes(['Фахитос', 'Омлет'], 3))
+
+pprint(get_shop_list_by_dishes(['Фахитос', 'Омлет'], file_path, 2))
